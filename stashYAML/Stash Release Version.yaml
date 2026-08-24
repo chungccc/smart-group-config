@@ -12,30 +12,35 @@ proxy-groups:
       - HKG
       - SGP
       - JPN
+      - USA
     type: select
  
   - name: tiktok
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok_1.png
     type: select
     proxies:
+      - HKG
       - SGP
       - JPN
+      - USA
   
   - name: openai
     icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/openai.png
     type: select
     proxies:
+      - HKG
       - SGP
       - JPN
-      - DIRECT
+      - USA
   
   - name: Emby
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Emby.png
     type: select
     proxies:
+      - HKG
       - SGP
       - JPN
-      - DIRECT
+      - USA
  #地区分组
   - filter: ".*(香港|香港🇭🇰|🇭🇰|HK|HKG|Hong Kong).*"
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
