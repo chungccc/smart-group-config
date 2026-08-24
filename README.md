@@ -311,7 +311,7 @@ Use these rules at your own discretion.
 
 ---
 
-> 「不知道從什麼時候開始，在什麼東西上面都有個日期。」—— 王家衛《重慶森林》
+> 「應無所住而生其心」
 >
 > Last updated: **August 24, 2026**
 
