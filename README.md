@@ -301,7 +301,7 @@ Smart 策略组根据节点名称、地区及质量等级进行更加精细化�
 
 ## Personal Use
 
-This repository is a **personal network configuration**.
+**These rules are provided for personal use only; availability for other users is not guaranteed.**
 
 The rules are collected and maintained according to actual usage, personal network conditions, preferred services, proxy nodes, ISP, DNS configuration, and individual requirements.
 
