@@ -1,6 +1,6 @@
 #更新日期：2026年8月24日
 proxy-providers:
-  专线:
+  机场A:
     health-check:
       enable: true
       url: http://cp.cloudflare.com/generate_204
@@ -8,15 +8,78 @@ proxy-providers:
       interval: 300
       timeout: 3000
     interval: 3000
-    path: ./providers/专线.yaml
+    path: ./providers/机场A.yaml
     type: http
     url: #删除本注释并填入订阅链接
-    filter: '(香港|日本|新加坡|美国|韩国|台湾|家宽|原生)'
+    filter: '(香港|日本|新加坡|美国|韩国|台湾|家宽|原生)' #筛选保留节点 也可以替换成下列filter
     #filter: '^(?!.*(流量|到期|套餐|官网|刷新|订阅|更新|失联|邮箱|IPV6|官方)).*$'
     override:
-      additional-prefix: "PRO-"
-      additional-suffix: "-PRM"
-      proxy-name:
+      additional-prefix: "PRO-" #前缀 用于识别机场
+      additional-suffix: "-PRM" #后缀 区分不同等级机场
+      proxy-name: #节点关键字替换或者删除-有需要可以保留-可删除-其他机场可以根据节点的名称进行调整 目的是让不同的机场节点名称尽量保持统一格式
+       - pattern: "香港"
+         target: "HKG-"
+       - pattern: "韩国"
+         target: "KOR"
+       - pattern: "马来西亚"
+         target: "MYS"
+       - pattern: "泰国"
+         target: "THA"
+       - pattern: "首尔"
+         target: "Soul"
+       - pattern: "新加坡"
+         target: "SGP-"
+       - pattern: "日本"
+         target: "JPN-"
+       - pattern: "台湾"
+         target: "TWN-"
+       - pattern: "加拿大"
+         target: "CAN-"
+       - pattern: "英国"
+         target: "GBR-"
+       - pattern: "美国"
+         target: "USA-"
+       - pattern: "原生"
+         target: "-Native"
+       - pattern: "家宽"
+         target: "HOME"
+       - pattern: "联通"
+         target: "CU"
+       - pattern: "移动"
+         target: "CM-"
+       - pattern: "电信"
+         target: "CT"
+       - pattern: "中转"
+         target: "Relay"
+       - pattern: "负载"
+         target: "LD-"
+       - pattern: "荷兰"
+         target: "NLD"
+       - pattern: "🇨🇳" #旗帜
+         target: "🇹🇼"
+       - pattern: "0.5倍率"
+         target: "X0.5"
+       - pattern: "直连"
+         target: "DIR-"
+       - pattern: "德国"
+         target: "DEU"
+  机场B:
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      lazy: true
+      interval: 300
+      timeout: 3000
+    interval: 3000
+    path: ./providers/机场B.yaml
+    type: http
+    url: #删除本注释并填入订阅链接
+    filter: '(香港|日本|新加坡|美国|韩国|台湾|家宽|原生)' #筛选保留节点 也可以替换成下列filter
+    #filter: '^(?!.*(流量|到期|套餐|官网|刷新|订阅|更新|失联|邮箱|IPV6|官方)).*$'
+    override:
+      additional-prefix: "PRO-" #前缀 用于识别机场
+      additional-suffix: "-BSC" #后缀 区分不同等级机场
+      proxy-name: #节点关键字替换或者删除-有需要可以保留-可删除-其他机场可以根据节点的名称进行调整 目的是让不同的机场节点名称尽量保持统一格式
        - pattern: "香港"
          target: "HKG-"
        - pattern: "韩国"
@@ -68,7 +131,7 @@ proxy-providers:
        
 allow-lan: true
 default:
-  proxies: &id001
+  proxies: &pr01
   - HKG
   - JPN
   - SGP
@@ -158,28 +221,28 @@ proxies:
   type: reject
 proxy-groups:
 - name: Test
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Steam
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Game
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: YouTube
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: TVB
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Instagram
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Telegram
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Google
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Emby
   proxies: 
@@ -190,46 +253,46 @@ proxy-groups:
   - Other-Basic
   type: select    
 - name: FavSites
-  proxies: *id001
+  proxies: *pr01
   type: select  
 - name: Pornhub
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: TikTok
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: ChatGPT
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: GitHub
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Twitter
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Facebook
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Netflix
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Spotify
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Apple
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Microsoft
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Overseas
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: CHN
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: Others
-  proxies: *id001
+  proxies: *pr01
   type: select
 - name: AdsBlock #广告拦截
   type: select
