@@ -35,7 +35,7 @@
 | 硬件   | Lunzn FastRhino R68S（电犀牛 R68S） |
 | 固件   | ImmortalWrt 24.10.4            |
 | 核心插件 | OpenClash                      |
-| 推荐核心 | Meta / Mihomo                  |
+| 推荐核心 | Mihomo                  |
 | 面板   | Zashboard                      |
 
 > 不代表只能运行于上述硬件和固件环境。
