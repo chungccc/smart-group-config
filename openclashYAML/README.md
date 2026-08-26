@@ -9,12 +9,16 @@
 > **统一节点命名 → 按地区 / 等级自动分类 → Smart 自动测速 → 自动选择最优节点**
 
 适合同时使用多个机场，并希望减少手动维护策略组、节点列表的用户。
-本目录提供 完整版本 和 Lite 轻量版 两套配置，核心思路都是通过 节点标准化 + 正则分类 + Smart 智能测速，实现多机场节点的自动管理和智能选择。
 
-配置文件
-配置	说明
-Smart Group Release Version.yaml	完整版，功能更加完整
-Smart Group Release Version lite.yaml	Lite 轻量版，结构更加精简，适合日常使用
+本目录提供 **完整版** 和 **Lite 轻量版** 两套 OpenClash 配置。
+
+## 配置文件
+
+| 配置文件                                                                                       | 说明                     |
+| ------------------------------------------------------------------------------------------ | ---------------------- |
+| [`Smart Group Release Version.yaml`](./Smart%20Group%20Release%20Version.yaml)             | 完整版，功能更加完整             |
+| [`Smart Group Release Version lite.yaml`](./Smart%20Group%20Release%20Version%20lite.yaml) | Lite 轻量版，结构更加精简，适合日常使用 |
+
 ---
 
 ## ✨ 核心特性
