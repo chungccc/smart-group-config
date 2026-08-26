@@ -640,3 +640,117 @@ Smart 自动测速
 >
 > **机场负责提供节点，Override 负责标准化，Filter 负责分类，Smart 负责选择。**
 
+# Smart Group Release Version Lite
+
+基于 **OpenClash + Mihomo Smart** 的轻量版配置模板。
+
+核心思路是使用 **Smart 策略组 + LightGBM** 自动选择节点，并按照地区对节点进行分类，同时通过节点名称后缀区分不同等级的机场节点。
+
+## 特点
+
+* **Smart 策略为主**
+* 按地区自动划分节点
+* 支持香港、日本、新加坡、美国地区 Smart 组
+* 提供整体 `SMART` Smart 组
+* 使用 **LightGBM** 自动选择节点
+* 支持通过节点后缀区分机场等级
+* `PRM` 节点设置更高优先级
+* 内置常用网站、流媒体、游戏平台及 AI 服务规则
+* 内置广告拦截规则
+* 规则集通过 GitHub 自动更新
+* 相比完整版本更加精简，适合日常使用
+
+## Smart 策略组
+
+| 策略组             | 用途                    |
+| --------------- | --------------------- |
+| `SMART`         | 所有 PRM 节点的综合 Smart 选择 |
+| `HKG`           | 香港地区节点                |
+| `JPN`           | 日本地区节点                |
+| `SGP`           | 新加坡地区节点               |
+| `USA`           | 美国地区节点                |
+| `HOME`          | 家宽 / 家庭 / 住宅节点        |
+| `Manual Choice` | 手动选择节点                |
+| `Download`      | 下载 / BT 等流量           |
+
+地区 Smart 组会根据节点名称自动匹配对应地区，无需手动维护节点列表。
+
+## 节点命名
+
+配置通过节点名称中的前缀和后缀区分不同机场及节点等级。
+
+例如：
+
+```text
+机场A-香港01-PRM
+机场A-日本01-PRM
+机场B-香港01-BSC
+机场B-新加坡01-BSC
+```
+
+其中：
+
+* `机场A` / `机场B`：用于区分不同机场
+* `PRM`：高优先级节点
+* `BSC`：普通节点
+
+`PRM` 节点在 Smart 策略中的优先级设置为 `1.3`。
+
+## 规则
+
+配置针对常用服务进行了独立策略分流，包括：
+
+* Instagram / Facebook / Threads
+* ChatGPT
+* Gemini
+* Google
+* GitHub
+* Telegram
+* YouTube
+* Netflix
+* TikTok
+* Spotify
+* Steam
+* Apple
+* Microsoft
+* 游戏平台
+* Emby
+* TVB
+* 广告拦截
+
+其中：
+
+* **Facebook、Instagram 和 Threads 均使用 Instagram 策略**
+* **Gemini 使用 Google 策略**
+
+## 使用
+
+1. 下载 YAML 配置文件。
+2. 在 `proxy-providers` 中填入自己的机场订阅链接。
+3. 根据实际情况修改机场名称及节点后缀。
+4. 导入 OpenClash。
+5. 根据自己的需求修改规则和策略组。
+
+机场订阅示例：
+
+```yaml
+additional-prefix: "机场A-"
+additional-suffix: "-PRM"
+```
+
+配置文件中的机场订阅部分已经预留好位置，只需要填入订阅链接即可。
+
+## 注意
+
+此配置主要针对 **Mihomo / OpenClash Smart** 使用。
+
+`lite` 版本以实用和简洁为主，不追求加入大量额外功能；如果需要进一步修改，可以直接在本地调整 YAML。
+
+---
+
+**配置文件：**
+
+[Smart Group Release Version lite.yaml](https://github.com/chungccc/yaml-config/blob/main/openclashYAML/Smart%20Group%20Release%20Version%20lite.yaml)
+
+**最后更新：** 2026-08-24
+
