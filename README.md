@@ -2,7 +2,7 @@
 
 > 「凡所有相，皆是虛妄。若見諸相非相，則見如來。」
 >
-> Last updated: **2026年8月27日 2:14 (UTC+8)**
+> Last updated: **August 27, 2026, 2:14 AM (UTC+8)**
 
 The rules are collected and maintained according to actual usage, personal network conditions, preferred services, proxy nodes, ISP, DNS configuration, and individual requirements.
 
