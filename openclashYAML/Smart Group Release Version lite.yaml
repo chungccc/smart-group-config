@@ -498,27 +498,6 @@ rule-providers:
     type: http
     path: ./rule_provider/Emby.yaml
     url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/Emby.yaml
-  IPTest-Domain: #域名规则托管在github
-    behavior: classical
-    format: yaml
-    interval: 86400
-    type: http
-    path: ./rule_provider/IPTest.yaml
-    url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/IPTest.yaml
-  Directmod-Domain: #域名规则托管在github
-    behavior: classical
-    format: yaml
-    interval: 7200
-    type: http
-    path: ./rule_provider/Directmod.yaml
-    url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/Directmod.yaml
-  FavSites-Domain: #域名规则托管在github
-    behavior: classical
-    format: yaml
-    interval: 7200
-    type: http
-    path: ./rule_provider/FavSites.yaml
-    url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/FavSites.yaml
 rules:
 - RULE-SET,AWAvenue,AdsBlock #广告拦截
 - RULE-SET,anti-ad,AdsBlock #广告拦截
