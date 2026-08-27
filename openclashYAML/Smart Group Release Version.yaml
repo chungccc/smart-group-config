@@ -131,21 +131,7 @@ proxy-providers:
        
 allow-lan: true
 default:
-  proxies: &pr01
-  - HKG
-  - JPN
-  - SGP
-  - USA
-  - SMART
-  - HOME
-  - Media Mix
-  - HK-Basic
-  - SG-Basic
-  - Other-Basic
-  - Manual Choice
-  - Download
-  - 直连
-  - 拒绝
+  proxies: &pr01 [HKG, JPN, SGP, USA, SMART, HOME, Media Mix, HK-Basic, SG-Basic, Other-Basic, Manual Choice, Download, 直连, 拒绝]
   type: select
   
   
@@ -215,6 +201,9 @@ lgbm-auto-update: true #smart模型更新
 lgbm-update-interval: 48
 lgbm-url: "https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model-large.bin"
 
+proxies:
+  - {name: 直连, type: direct}
+  - {name: 拒绝, type: reject}
 proxy-groups:
   - {name: Test, proxies: *pr01, type: select}
   - {name: Steam, proxies: *pr01, type: select}
