@@ -1,4 +1,4 @@
-#更新日期：2026年8月24日
+#更新日期：2026年8月27日
 proxy-providers:
   机场A:
     health-check:
@@ -210,194 +210,57 @@ profile:
   store-fake-ip: true
   store-selected: true
 unified-delay: true # 统一延迟 计算RTT 可选值 true/false
+#smart模型更新
 lgbm-auto-update: true #smart模型更新
 lgbm-update-interval: 48
 lgbm-url: "https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model-large.bin"
-proxies:
-- name: 直连
-  type: direct
-- name: 拒绝
-  type: reject
+
 proxy-groups:
-- name: Test
-  proxies: *pr01
-  type: select
-- name: Steam
-  proxies: *pr01
-  type: select
-- name: Game
-  proxies: *pr01
-  type: select
-- name: YouTube
-  proxies: *pr01
-  type: select
-- name: TVB
-  proxies: *pr01
-  type: select
-- name: Instagram
-  proxies: *pr01
-  type: select
-- name: Telegram
-  proxies: *pr01
-  type: select
-- name: Google
-  proxies: *pr01
-  type: select
-- name: Emby
-  proxies: *pr01
-  type: select    
-- name: FavSites
-  proxies: *pr01
-  type: select  
-- name: Pornhub
-  proxies: *pr01
-  type: select
-- name: TikTok
-  proxies: *pr01
-  type: select
-- name: ChatGPT
-  proxies: *pr01
-  type: select
-- name: GitHub
-  proxies: *pr01
-  type: select
-- name: Twitter
-  proxies: *pr01
-  type: select
-- name: Facebook
-  proxies: *pr01
-  type: select
-- name: Netflix
-  proxies: *pr01
-  type: select
-- name: Spotify
-  proxies: *pr01
-  type: select
-- name: Apple
-  proxies: *pr01
-  type: select
-- name: Microsoft
-  proxies: *pr01
-  type: select
-- name: Overseas
-  proxies: *pr01
-  type: select
-- name: CHN
-  proxies: *pr01
-  type: select
-- name: Others
-  proxies: *pr01
-  type: select
-- name: AdsBlock #广告拦截
-  type: select
-  proxies:
-    - 拒绝
-    - 直连        # 直接REJECT
+  - {name: Test, proxies: *pr01, type: select}
+  - {name: Steam, proxies: *pr01, type: select}
+  - {name: Game, proxies: *pr01, type: select}
+  - {name: YouTube, proxies: *pr01, type: select}
+  - {name: TVB, proxies: *pr01, type: select}
+  - {name: Instagram, proxies: *pr01, type: select}
+  - {name: Telegram, proxies: *pr01, type: select}
+  - {name: Google, proxies: *pr01, type: select}
+  - {name: Emby, proxies: *pr01, type: select}
+  - {name: FavSites, proxies: *pr01, type: select}
+  - {name: Pornhub, proxies: *pr01, type: select}
+  - {name: TikTok, proxies: *pr01, type: select}
+  - {name: ChatGPT, proxies: *pr01, type: select}
+  - {name: GitHub, proxies: *pr01, type: select}
+  - {name: Twitter, proxies: *pr01, type: select}
+  - {name: Facebook, proxies: *pr01, type: select}
+  - {name: Netflix, proxies: *pr01, type: select}
+  - {name: Spotify, proxies: *pr01, type: select}
+  - {name: Apple, proxies: *pr01, type: select}
+  - {name: Microsoft, proxies: *pr01, type: select}
+  - {name: Overseas, proxies: *pr01, type: select}
+  - {name: CHN, proxies: *pr01, type: select}
+  - {name: Others, proxies: *pr01, type: select}
+  - {name: AdsBlock, type: select, proxies: [拒绝, 直连]}
 
-#ONEsmart
-- name: SMART
-  type: smart
-  filter: ".*PRM.*"
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  policy-priority: "Max:0.5;TOP:0.5;"
-  prefer-asn: true
-#香港地区
-- name: HKG
-  type: smart
-  filter: "(?=.*(香港|HK|Hong Kong|HKG))(?=.*PRM).*"
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  policy-priority: "Max:0.5;TOP:0.3;PRO:0.3;"
-  prefer-asn: true
-#HOME
-- name: HOME
-  type: smart
-  filter: "(?=.*(HOME|家宽|家庭|住宅)).*"
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-
-#新加坡地区
-- name: SGP
-  type: smart
-  filter: '^(?=.*(新加坡|SG|Singapore|SGP))(?=.*PRM).*$'
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  policy-priority: "Max:0.5;TOP:0.3;"
-  prefer-asn: true
-
-#日本地区
-- name: JPN 
-  type: smart 
-  filter: '^(?=.*(日本|东京|JP|Japan|JPN))(?=.*PRM).*$' 
-  uselightgbm: true 
-  collectdata: false 
-  include-all: true 
-  policy-priority: "Max:0.5;TOP:0.3;"
-  prefer-asn: true
-
-#美国地区
-- name: USA
-  type: smart
-  filter: '^(?=.*(美国|纽约|洛杉矶|US|USA|United States|America))(?=.*PRM).*$'
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  policy-priority: "Max:0.5;TOP:0.3;"
-  prefer-asn: true
-
-#新加坡香港BSC混合节点组
-- name: HK-Basic #Emby节点
-  type: smart
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  filter: "(?=.*(香港|HK|Hong Kong|HKG))(?=.*BSC).*"
-  prefer-asn: true
-
-- name: SG-Basic #Emby节点
-  type: smart
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  filter: "(?=.*(新加坡|SG|Singapore|SGP))(?=.*BSC).*"
-  policy-priority: LXY:1.2
-  prefer-asn: true
-
-- name: Other-Basic #Emby节点
-  type: smart
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  filter: "(?=.*(TWN|KOR|DEU|FRA|GBR|BRA|NLD))(?=.*BSC).*"
-  prefer-asn: true
-
-- name: Media Mix #YouTube节点
-  type: smart
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  filter: "(?=.*(香港|HK|Hong Kong|HKG))(?=.*(PRM|PRO|STB))(?!.*(Max|MAX|Top|TOP)).*"
-  policy-priority: "PRM:1.3;CT:1.2;BSC:0.5;"
-  prefer-asn: true
-
-#其他
-- filter: ^((?!(拒绝|直连)).)*$
-  include-all: true
-  name: Manual Choice
-  type: select
-
-- name: Download
-  type: smart
-  uselightgbm: true
-  collectdata: false
-  include-all: true
-  filter: "(?i)(下载|0\\.1|0\\.01X|BT|DL)"
-  prefer-asn: true
+  # ONEsmart
+  - {name: SMART, type: smart, filter: ".*PRM.*", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.5;", prefer-asn: true}
+  # 香港地区
+  - {name: HKG, type: smart, filter: "(?=.*(香港|HK|Hong Kong|HKG))(?=.*PRM).*", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.3;PRO:0.3;", prefer-asn: true}
+  # HOME
+  - {name: HOME, type: smart, filter: "(?=.*(HOME|家宽|家庭|住宅)).*", uselightgbm: true, collectdata: false, include-all: true}
+  # 新加坡地区
+  - {name: SGP, type: smart, filter: '^(?=.*(新加坡|SG|Singapore|SGP))(?=.*PRM).*$', uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.3;", prefer-asn: true}
+  # 日本地区
+  - {name: JPN, type: smart, filter: '^(?=.*(日本|东京|JP|Japan|JPN))(?=.*PRM).*$', uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.3;", prefer-asn: true}
+  # 美国地区
+  - {name: USA, type: smart, filter: '^(?=.*(美国|纽约|洛杉矶|US|USA|United States|America))(?=.*PRM).*$', uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.3;", prefer-asn: true}
+  # 新加坡香港BSC混合节点组
+  - {name: HK-Basic, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?=.*(香港|HK|Hong Kong|HKG))(?=.*BSC).*", prefer-asn: true}
+  - {name: SG-Basic, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?=.*(新加坡|SG|Singapore|SGP))(?=.*BSC).*", policy-priority: LXY:1.2, prefer-asn: true}
+  - {name: Other-Basic, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?=.*(TWN|KOR|DEU|FRA|GBR|BRA|NLD))(?=.*BSC).*", prefer-asn: true}
+  # 手动选择
+  - {name: Manual Choice, type: select, filter: ^((?!(拒绝|直连)).)*$, include-all: true}
+  #低倍率
+  - {name: Download, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?i)(下载|0\\.1|0\\.01X|BT|DL)", prefer-asn: true}
 
 
 redir-port: 7892
@@ -418,249 +281,48 @@ rule-anchor:
     interval: 86400
     type: http
 rule-providers:
-  AWAvenue: #秋风广告规则
-    type: http
-    behavior: domain
-    format: yaml
-    path: ./rule_providers/AWAvenue-Ads-Rule-Clash.yaml
-    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml"
-    interval: 86400
-  anti-ad:
-    type: http
-    behavior: domain
-    path: ./ruleset/anti-ad.yaml
-    url: https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml
-    interval: 86400
-  Instagram-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/instagram.mrs
-  AI-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-!cn.mrs
-  Apple-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs
-  Apple-CN-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs
-  Blizzard-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Blizzard/Blizzard.list
-  ChatGPT-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs
-  IMDb-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/imdb.mrs
-  China-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
-  China-IP:
-    behavior: ipcidr
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs
-  Direct-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Direct.list
-  EA-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.list
-  Epic-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.list
-  Facebook-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs
-  Github-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs
-  Globe-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list
-  Google-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs
-  Google-IP:
-    behavior: ipcidr
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs
-  Microsoft-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs
-  Netflix-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs
-  Netflix-IP:
-    behavior: ipcidr
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs
-  Nintend-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.list
-  Private-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs
-  Proxy-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Proxy.list
-  Sony-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.list
-  Spotify-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs
-  Steam-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs
-  TEST-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Check.list
-  Telegram-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs
-  Telegram-IP:
-    behavior: ipcidr
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs
-  TikTok-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs
-  UBI-Domain:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.list
-  Youtube-Domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs
-  Emby-Domain: #域名规则托管在github
-    behavior: classical
-    format: yaml
-    interval: 86400
-    type: http
-    path: ./rule_provider/Emby.yaml
-    url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/Emby.yaml
-  IPTest-Domain: #域名规则托管在github
-    behavior: classical
-    format: yaml
-    interval: 86400
-    type: http
-    path: ./rule_provider/IPTest.yaml
-    url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/IPTest.yaml
-  Directmod-Domain: #域名规则托管在github
-    behavior: classical
-    format: yaml
-    interval: 7200
-    type: http
-    path: ./rule_provider/Directmod.yaml
-    url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/Directmod.yaml
-  FavSites-Domain: #域名规则托管在github
-    behavior: classical
-    format: yaml
-    interval: 7200
-    type: http
-    path: ./rule_provider/FavSites.yaml
-    url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/FavSites.yaml
+  AWAvenue: {type: http, behavior: domain, format: yaml, path: ./rule_providers/AWAvenue-Ads-Rule-Clash.yaml, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml", interval: 86400}
+  anti-ad: {type: http, behavior: domain, path: ./ruleset/anti-ad.yaml, url: https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml, interval: 86400}
+  Instagram-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/instagram.mrs}
+  AI-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-!cn.mrs}
+  Apple-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs}
+  Apple-CN-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs}
+  Blizzard-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Blizzard/Blizzard.list}
+  ChatGPT-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs}
+  IMDb-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/imdb.mrs}
+  China-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs}
+  China-IP: {behavior: ipcidr, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs}
+  Direct-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Direct.list}
+  EA-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.list}
+  Epic-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.list}
+  Facebook-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs}
+  Github-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs}
+  Globe-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list}
+  Google-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs}
+  Google-IP: {behavior: ipcidr, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs}
+  Microsoft-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs}
+  Netflix-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs}
+  Netflix-IP: {behavior: ipcidr, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs}
+  Nintend-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.list}
+  Private-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs}
+  Proxy-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Proxy.list}
+  Sony-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.list}
+  Spotify-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs}
+  Steam-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs}
+  TEST-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Check.list}
+  Telegram-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs}
+  Telegram-IP: {behavior: ipcidr, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs}
+  TikTok-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs}
+  UBI-Domain: {behavior: classical, format: text, interval: 86400, type: http, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.list}
+  Youtube-Domain: {behavior: domain, format: mrs, interval: 86400, type: http, url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs}
+  Emby-Domain: {behavior: classical, format: yaml, interval: 86400, type: http, path: ./rule_provider/Emby.yaml, url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/Emby.yaml}
+  IPTest-Domain: {behavior: classical, format: yaml, interval: 86400, type: http, path: ./rule_provider/IPTest.yaml, url: https://raw.githubusercontent.com/chungccc/Ruleset/refs/heads/main/IPTest.yaml}
 rules:
 - RULE-SET,AWAvenue,AdsBlock #广告拦截
 - RULE-SET,anti-ad,AdsBlock #广告拦截
 - DOMAIN-SUFFIX,adobe.io,REJECT #Adobe检测拦截
-#直连网站
-- RULE-SET,Directmod-Domain,CHN #域名规则托管在github
 # Emby规则
 - RULE-SET,Emby-Domain,Emby #域名规则托管在github
-# FavSites 常用海外网站
-- RULE-SET,FavSites-Domain,FavSites #域名规则托管在github
 #TVB
 - GEOSITE,mytvsuper,TVB
 #ip检测
@@ -719,6 +381,7 @@ tun:
   stack: mixed
   strict-route: false
 
+#GEO更新模块
 geodata-mode: true
 # 设置 GEO 文件加载模式
 geodata-loader: standard  # 或者 memconservative（根据内存情况选择）
@@ -732,193 +395,3 @@ geox-url:
   geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
   mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb"
   asn: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
-
-
-# =========================================================
-# 策略组说明
-# =========================================================
-# 本配置采用多机场、多地区、多质量等级的节点体系，结合 Smart Group
-# 智能节点选择，实现高效、稳定、精细化的流量管理。
-#
-# 【一、节点前缀 / 后缀体系】
-# 每个机场的 Provider 都设定了统一的前缀（用于区分不同机场来源），
-# 并为节点添加了后缀（PRM / STD / BSC）用于质量划分：
-#
-#   • PRM：高质量节点（Premium）
-#           - 用于 Instagram / Telegram / TikTok / ChatGPT 等对实时性
-#             与速度要求高的应用。
-#           - 香港 / 新加坡 / 日本 均提供 PRM 节点。
-#
-#   • STD：标准质量节点（Standard）
-#           - 作为 PRM 的备用。
-#           - 日常网页浏览、一般用途足够。
-#
-#   • BSC：基础节点（Basic）
-#           - 多为便宜或直连类机场。
-#           - 适用于 Steam 下载、Emby、PT、大流量使用场景。
-#
-# 后缀同時也是后续策略组筛选节点的重要依据，各地区（HK/SG/JP）均按
-# PRM/STD/BSC 做三层质量分组，按需选择最合适的节点等级。
-#
-#
-# 【二、地区化分组】
-# 常用地区（香港、新加坡、日本）：提供 PRM/STD/BSC 三级质量分组。
-# 不常用地区（美国、韩国、台湾等）：独立分组，按需使用。
-# 各机场也维护其专属的策略组，包含该机场的 HK / SG 节点，
-# 便于按机场来源选择节点。
-#
-#
-# 【三、Smart 智能策略】
-# 在 PRM、STD、BSC 分类下，多数策略组使用 Smart Group 模式：
-#   - 自动对节点进行延迟测试、成功率预估、带宽与稳定性综合评分
-#   - 自动选择当前最优节点
-#   - 适应 99% 的日常使用场景
-#
-#
-# 【四、内容/服务专用策略组】
-#   • YouTube-AdFree：独立的 YouTube 去广告线路策略组
-#                     可按需选择独立节点或智能组
-#
-#   • Emby：热门 Emby 服务域名已写入独立规则，走专用策略组，
-#           避免 Emby 流量被误分配至兜底或高质量节点。
-#
-#   • Test：用于 IP 检测网站（如 IPinfo、ipleak、browserleaks 等）
-#            后续可按需补充更多检测域名。
-#
-#
-# 【五、安全 & 广告过滤】
-# 部署3组基于规则集的广告拦截策略：
-#   - AdBlock 基础规则
-#   - AdBlock Plus 扩展规则
-# 根据规则优先级自动匹配，无需人工干预。
-# 如果openwrt里开启了adblock插件 则优先使用adblock openclash的广告拦截策略选择放行
-#
-# 【六、常用网站 FavSites 专组】
-# 常用访问的网站均已写入 FavSites 规则集：
-#   - 这些网站始终走 FavSites 策略组
-#   - 不会落入兜底策略，避免错误分配导致速度下降
-#
-#
-# 【七、直连网站 / 特殊域名处理】
-# 针对容易被误判走代理的国内系统（如报名系统、支付系统等），
-# 已添加到直连规则，确保正常访问。
-#
-#
-# 【八、策略结构总结】
-#   • 多机场 + 多地区 + 多质量（PRM/STD/BSC）
-#   • Smart Group 构成主力选择逻辑
-#   • 专用服务组（YouTube AdFree / Emby / Test）
-#   • 广告拦截规则
-#   • FavSites 常用网站精确分流
-#   • 直连保护敏感国内系统
-# ---------------------------------------------------------
-# 2026 年 8 月 24 日更新
-# ---------------------------------------------------------
-#
-# 【九、规则集集中维护】
-# 将个人使用的分流规则逐步从主配置中独立出来，并统一整理至 GitHub
-# Ruleset 仓库进行维护。
-#
-# 通过独立 Rule Provider 管理不同类型的规则，使主配置与具体域名规则
-# 解耦，后续可以直接在 GitHub 中维护和更新规则。
-#
-#
-# 【十、FavSites 常用网站规则集】
-# 新增 FavSites.yaml，用于集中维护个人日常使用及需要代理访问的网站。
-#
-# 该规则集根据实际访问记录持续补充，并作为个人常用网站的专用分流规则，
-# 避免相关域名因未命中特定规则而进入兜底策略。
-#
-# FavSites 主要用于记录个人实际使用过、且根据当前网络环境需要代理访问
-# 的网站和服务，不作为通用代理规则集使用。
-#
-#
-# 【十一、Direct 直连规则集】
-# 新增 Direct.yaml，用于集中管理需要强制直连的特殊域名。
-#
-# 主要包括报名系统、管理系统、订阅服务等容易因默认规则或地区判断而被
-# 错误代理的域名。
-#
-# 通过独立规则集统一指定直连策略，减少主配置中的重复规则，并方便后续
-# 根据实际使用情况进行调整。
-#
-#
-# 【十二、IP / ASN / Geo 检测专用策略】
-# 新增 IP-Test.yaml，并建立独立 Test 策略组。
-#
-# 用于集中处理 IP、ASN、地理位置及网络环境检测网站，例如：
-#   - ip.sb
-#   - ipwho.is
-#   - ipapi.is
-#   - ip.skk.moe
-#   - iplark.com
-#   - bgp.tools
-#   - open.cachefly.net
-#
-# 通过独立 Test 策略组，可以在测试不同节点时快速确认实际出口 IP、
-# ASN、地区及网络线路情况。
-#
-#
-# 【十三、规则集自动更新】
-# GitHub 中维护的 Rule Provider 统一设置为每 3600 秒检查一次更新。
-#
-#   interval: 3600
-#
-# 即每小时自动检查 GitHub 上的规则是否发生变化。
-# 后续新增或修改规则时，无需频繁修改主配置即可同步更新。
-#
-#
-# 【十四、规则体系进一步细化】
-# 根据近期实际使用情况，对未命中特定规则的域名进行持续整理。
-#
-# 将实际访问过程中发现的海外服务、CDN、下载服务、媒体服务、开发服务、
-# AI / 图片服务及其他个人常用网站逐步加入对应规则集。
-#
-# 同时继续区分代理、直连以及测试类流量，使规则匹配更加明确。
-#
-#
-# 【十五、节点筛选体系进一步细化】
-# 延续原有 PRM / STD / BSC 质量等级体系，并进一步利用节点名称中的
-# 质量标识进行 Smart 筛选。
-#
-# Smart 策略组根据节点名称、地区及质量等级进行更加精细化的节点分类，
-# 其中 PRM 节点继续作为高质量线路使用，并针对香港、新加坡、日本等
-# 常用地区进行独立筛选。
-#
-# 部分 Smart 策略组进一步限定节点必须包含 PRM 标识，以避免低质量节点
-# 混入高质量线路。
-#
-#
-# 【十六、GitHub Ruleset 个人化定位】
-# 当前 GitHub Ruleset 中的规则均来自个人实际使用过程中的记录与调整。
-#
-# 这些规则与节点选择、地区、运营商、DNS、代理服务及个人使用习惯高度
-# 相关，并不以构建通用规则集为目标。
-#
-# 同一域名在不同网络环境下可能具有不同的最佳策略，因此规则的代理、
-# 直连及特殊分流结果仅代表当前个人网络环境下的选择。
-#
-#
-# ---------------------------------------------------------
-# 本次更新主要完成：
-#
-#   • 将个人分流规则逐步从主配置独立至 GitHub Ruleset
-#   • 新增 FavSites 常用网站规则集
-#   • 新增 Direct 直连规则集
-#   • 新增 IP-Test / Test IP 检测策略
-#   • Rule Provider 更新周期调整为每小时一次
-#   • 持续补充实际访问过程中发现的未命中域名
-#   • 进一步细化 PRM / STD / BSC 节点筛选
-#   • 强化 Smart Group 的节点质量分类
-#   • 保持整个配置以个人实际使用需求为核心
-#
-# ---------------------------------------------------------
-# 更新日期：2026 年 8 月 24 日
-# ---------------------------------------------------------
-#
-# ---------------------------------------------------------
-# 本策略与分流模板为个人专用配置，仅适用于我自己的使用需求。
-# 所有节点分组、品质划分、规则分配及 Smart 策略均根据我的实际使用场景定制，不适合作为通用模板。
-# 行到水穷处，坐看云起时。
-# 日期：2025 年 11 月 27 日
-# ---------------------------------------------------------
