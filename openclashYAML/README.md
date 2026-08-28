@@ -14,10 +14,94 @@
 
 ## 配置文件
 
-| 配置文件                                                                                       | 说明                     |
-| ------------------------------------------------------------------------------------------ | ---------------------- |
-| [`Smart Group Release Version.yaml`](./Smart%20Group%20Release%20Version.yaml)             | 完整版，功能更加完整             |
-| [`Smart Group Release Version lite.yaml`](./Smart%20Group%20Release%20Version%20lite.yaml) | Lite 轻量版，结构更加精简，适合日常使用 |
+## 📦 三个版本的区别
+
+本目录提供三种配置版本，分别针对不同的使用需求：
+
+| 版本                                   | 核心策略             | 定位        | 推荐    |
+| ------------------------------------ | ---------------- | --------- | ----- |
+| **Smart Group Release Version**      | Smart + LightGBM | 功能完整版     | ⭐⭐⭐⭐⭐ |
+| **Smart Group Release Version lite** | Smart + LightGBM | 轻量化 Smart | ⭐⭐⭐⭐⭐ |
+| **Urltest Release Version lite**     | URLTEST          | 简单自动测速    | ⭐⭐⭐⭐  |
+
+### 🧠 Smart Group Release Version
+
+**完整版 Smart 配置。**
+
+保留完整的 Smart 策略、LightGBM、节点分类、地区策略以及较完整的规则体系。
+
+适合希望获得完整功能，并愿意承担更高配置复杂度的用户。
+
+> **关键词：功能完整 / Smart / LightGBM / 高度可定制**
+
+---
+
+### ⚡ Smart Group Release Version lite
+
+**Smart 轻量版。**
+
+保留 Smart + LightGBM 的核心能力，同时精简策略组和部分规则，降低配置复杂度。
+
+适合日常长期使用。
+
+> **关键词：Smart / LightGBM / 轻量 / 日常使用**
+
+---
+
+### 🚀 Urltest Release Version lite
+
+**URLTEST 轻量版。**
+
+不使用 Smart 和 LightGBM，而是使用 Mihomo 原生 `url-test` 策略，根据实时测速结果自动选择节点。
+
+配置更加简单，资源占用和维护成本也更低。
+
+> **关键词：URLTEST / 实时测速 / 简单 / 低维护**
+
+### 🔍 如何选择？
+
+**想要最完整的功能：**
+
+`Smart Group Release Version.yaml`
+
+**想要 Smart，同时兼顾简洁和性能：**
+
+`Smart Group Release Version lite.yaml`
+
+**只想要简单可靠的自动测速：**
+
+`Urltest Release Version lite.yaml`
+
+
+| 配置             | Smart 完整版                          | Smart Lite                              | URLTEST Lite                        |
+| -------------- | ---------------------------------- | --------------------------------------- | ----------------------------------- |
+| 文件名            | `Smart Group Release Version.yaml` | `Smart Group Release Version lite.yaml` | `Urltest Release Version lite.yaml` |
+| 核心策略           | **Smart**                          | **Smart**                               | **URLTEST**                         |
+| LightGBM       | ✅                                  | ✅                                       | ❌                                   |
+| 智能评分           | ✅                                  | ✅                                       | ❌                                   |
+| 实时测速           | ✅                                  | ✅                                       | ✅                                   |
+| 历史数据/模型        | ✅                                  | ✅                                       | ❌                                   |
+| PRM / BSC      | ✅                                  | ✅                                       | ✅                                   |
+| 地区分类           | ✅                                  | ✅                                       | ✅                                   |
+| 多机场            | ✅                                  | ✅                                       | ✅                                   |
+| 规则分流           | 完整                                 | 精简                                      | 精简                                  |
+| 策略组            | 较多                                 | 精简                                      | 精简                                  |
+| Rule-Providers | 较完整                                | 精简                                      | 精简                                  |
+| 配置复杂度          | ⭐⭐⭐⭐⭐                              | ⭐⭐⭐                                     | ⭐⭐                                  |
+| 资源占用           | 较高                                 | 中等                                      | 较低                                  |
+| 维护成本           | 较高                                 | 较低                                      | 最低                                  |
+| 推荐人群           | 追求完整功能                             | **日常使用**                                | **追求简单稳定**                          |
+
+### 📦 三个版本的核心区别
+
+* **Smart Group Release Version（完整版）**
+  提供 **PRM 优质机场**与 **BSC 备用机场**两套独立的节点组，可根据需求分别选择 PRM 或 BSC 节点，适合多个机场混合使用，并方便对不同等级的机场进行独立管理与分流。
+
+* **Smart Group Release Version Lite**
+  将 **PRM 与 BSC 节点混合编组**，由 Smart + LightGBM 在统一节点池中进行智能选择。配置更加简洁，减少节点组数量，适合日常使用。
+
+* **Urltest Release Version Lite**
+  同样采用 **PRM + BSC 混合编组**，但不使用 Smart / LightGBM，而是通过 URLTEST 对混合节点池进行测速，并自动选择当前表现较好的节点，配置更加简单轻量。
 
 ---
 
