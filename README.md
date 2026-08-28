@@ -20,6 +20,11 @@ Use these rules at your own discretion.
 
 ### 🛜 OpenClash
 
+| 配置文件                                                                                       | 说明                     |
+| ------------------------------------------------------------------------------------------ | ---------------------- |
+| [`Smart Group Release Version.yaml`](./Smart%20Group%20Release%20Version.yaml)             | 完整版，功能更加完整             |
+| [`Smart Group Release Version lite.yaml`](./Smart%20Group%20Release%20Version%20lite.yaml) | Lite 轻量版，结构更加精简，适合日常使用 |
+
 适用于 OpenWrt / ImmortalWrt 路由器。
 
 **主要特点：**
