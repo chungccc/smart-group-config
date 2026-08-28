@@ -103,6 +103,10 @@
 * **Urltest Release Version Lite**
   同样采用 **PRM + BSC 混合编组**，但不使用 Smart / LightGBM，而是通过 URLTEST 对混合节点池进行测速，并自动选择当前表现较好的节点，配置更加简单轻量。
 
+## 🎯 3个版本包含的策略组
+
+`Test` · `Steam` · `Game` · `YouTube` · `TVB` · `Instagram` · `Telegram` · `Google` · `Emby` · `FavSites` · `Pornhub` · `TikTok` · `ChatGPT` · `GitHub` · `Twitter` · `Facebook` · `Netflix` · `Spotify` · `Apple` · `Microsoft` · `Overseas` · `CHN` · `Others` · `AdsBlock`
+
 ---
 
 ## ✨ 核心特性
