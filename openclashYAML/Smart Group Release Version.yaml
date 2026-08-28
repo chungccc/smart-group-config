@@ -1,139 +1,80 @@
-#更新日期：2026年8月27日
+#更新日期：2026年8月28日
+#订阅健康检查锚点
+health-check: &hc {enable: true, url: http://cp.cloudflare.com/generate_204, lazy: true, interval: 300, timeout: 3000}
 proxy-providers:
   机场A:
-    health-check:
-      enable: true
-      url: http://cp.cloudflare.com/generate_204
-      lazy: true
-      interval: 300
-      timeout: 3000
+    health-check: *hc
     interval: 3000
     path: ./providers/机场A.yaml
     type: http
     url: #删除本注释并填入订阅链接
-    filter: '(香港|日本|新加坡|美国|韩国|台湾|家宽|原生)' #筛选保留节点 也可以替换成下列filter
+    filter: '^(?!.*(流量|到期|套餐|官网|刷新|订阅|更新|失联|邮箱|IPV6|官方)).*$' #筛选保留节点 也可以替换成下列filter
     #filter: '^(?!.*(流量|到期|套餐|官网|刷新|订阅|更新|失联|邮箱|IPV6|官方)).*$'
     override:
       additional-prefix: "机场A-" #前缀 用于识别机场
-      additional-suffix: "-PRM" #后缀 区分不同等级机场
-      proxy-name: #节点关键字替换或者删除-有需要可以保留-可删除-其他机场可以根据节点的名称进行调整 目的是让不同的机场节点名称尽量保持统一格式
-       - pattern: "香港"
-         target: "HKG-"
-       - pattern: "韩国"
-         target: "KOR"
-       - pattern: "马来西亚"
-         target: "MYS"
-       - pattern: "泰国"
-         target: "THA"
-       - pattern: "首尔"
-         target: "Soul"
-       - pattern: "新加坡"
-         target: "SGP-"
-       - pattern: "日本"
-         target: "JPN-"
-       - pattern: "台湾"
-         target: "TWN-"
-       - pattern: "加拿大"
-         target: "CAN-"
-       - pattern: "英国"
-         target: "GBR-"
-       - pattern: "美国"
-         target: "USA-"
-       - pattern: "原生"
-         target: "-Native"
-       - pattern: "家宽"
-         target: "HOME"
-       - pattern: "联通"
-         target: "CU"
-       - pattern: "移动"
-         target: "CM-"
-       - pattern: "电信"
-         target: "CT"
-       - pattern: "中转"
-         target: "Relay"
-       - pattern: "负载"
-         target: "LD-"
-       - pattern: "荷兰"
-         target: "NLD"
-       - pattern: "🇨🇳" #旗帜
-         target: "🇹🇼"
-       - pattern: "0.5倍率"
-         target: "X0.5"
-       - pattern: "直连"
-         target: "DIR-"
-       - pattern: "德国"
-         target: "DEU"
+      additional-suffix: "-PRM" #后缀 区分不同等级机场  PRM代表优质 BSC代表基本备用
+      proxy-name: #节点关键字替换或者删除-有需要可以保留-可删除-其他机场可以根据节点的实际名称进行调整 目的是让不同的机场节点名称尽量保持统一格式
+      - {pattern: "香港", target: "HKG-"} #前面是机场自带关键字 后面是替换
+      - {pattern: "韩国", target: "KOR"}
+      - {pattern: "马来西亚", target: "MYS"}
+      - {pattern: "泰国", target: "THA"}
+      - {pattern: "首尔", target: "Soul"}
+      - {pattern: "新加坡", target: "SGP-"}
+      - {pattern: "日本", target: "JPN-"}
+      - {pattern: "台湾", target: "TWN-"}
+      - {pattern: "加拿大", target: "CAN-"}
+      - {pattern: "英国", target: "GBR-"}
+      - {pattern: "美国", target: "USA-"}
+      - {pattern: "原生", target: "-Native"}
+      - {pattern: "家宽", target: "HOME"}
+      - {pattern: "联通", target: "CU"}
+      - {pattern: "移动", target: "CM-"}
+      - {pattern: "电信", target: "CT"}
+      - {pattern: "中转", target: "Relay"}
+      - {pattern: "负载", target: "LD-"}
+      - {pattern: "荷兰", target: "NLD"}
+      - {pattern: "🇨🇳", target: "🇹🇼"} # 旗帜
+      - {pattern: "0.5倍率", target: "X0.5"}
+      - {pattern: "直连", target: "DIR-"}
+      - {pattern: "德国", target: "DEU"}
   机场B:
-    health-check:
-      enable: true
-      url: http://cp.cloudflare.com/generate_204
-      lazy: true
-      interval: 300
-      timeout: 3000
+    health-check: *hc
     interval: 3000
     path: ./providers/机场B.yaml
     type: http
     url: #删除本注释并填入订阅链接
-    filter: '(香港|日本|新加坡|美国|韩国|台湾|家宽|原生)' #筛选保留节点 也可以替换成下列filter
+    filter: '^(?!.*(流量|到期|套餐|官网|刷新|订阅|更新|失联|邮箱|IPV6|官方)).*$' #筛选保留节点 也可以替换成下列filter
     #filter: '^(?!.*(流量|到期|套餐|官网|刷新|订阅|更新|失联|邮箱|IPV6|官方)).*$'
     override:
       additional-prefix: "机场B-" #前缀 用于识别机场
       additional-suffix: "-BSC" #后缀 区分不同等级机场
       proxy-name: #节点关键字替换或者删除-有需要可以保留-可删除-其他机场可以根据节点的名称进行调整 目的是让不同的机场节点名称尽量保持统一格式
-       - pattern: "香港"
-         target: "HKG-"
-       - pattern: "韩国"
-         target: "KOR"
-       - pattern: "马来西亚"
-         target: "MYS"
-       - pattern: "泰国"
-         target: "THA"
-       - pattern: "首尔"
-         target: "Soul"
-       - pattern: "新加坡"
-         target: "SGP-"
-       - pattern: "日本"
-         target: "JPN-"
-       - pattern: "台湾"
-         target: "TWN-"
-       - pattern: "加拿大"
-         target: "CAN-"
-       - pattern: "英国"
-         target: "GBR-"
-       - pattern: "美国"
-         target: "USA-"
-       - pattern: "原生"
-         target: "-Native"
-       - pattern: "家宽"
-         target: "HOME"
-       - pattern: "联通"
-         target: "CU"
-       - pattern: "移动"
-         target: "CM-"
-       - pattern: "电信"
-         target: "CT"
-       - pattern: "中转"
-         target: "Relay"
-       - pattern: "负载"
-         target: "LD-"
-       - pattern: "荷兰"
-         target: "NLD"
-       - pattern: "🇨🇳" #旗帜
-         target: "🇹🇼"
-       - pattern: "0.5倍率"
-         target: "X0.5"
-       - pattern: "直连"
-         target: "DIR-"
-       - pattern: "德国"
-         target: "DEU"
- 
+      - {pattern: "香港", target: "HKG-"} #前面是机场自带关键字 后面是替换
+      - {pattern: "韩国", target: "KOR"}
+      - {pattern: "马来西亚", target: "MYS"}
+      - {pattern: "泰国", target: "THA"}
+      - {pattern: "首尔", target: "Soul"}
+      - {pattern: "新加坡", target: "SGP-"}
+      - {pattern: "日本", target: "JPN-"}
+      - {pattern: "台湾", target: "TWN-"}
+      - {pattern: "加拿大", target: "CAN-"}
+      - {pattern: "英国", target: "GBR-"}
+      - {pattern: "美国", target: "USA-"}
+      - {pattern: "原生", target: "-Native"}
+      - {pattern: "家宽", target: "HOME"}
+      - {pattern: "联通", target: "CU"}
+      - {pattern: "移动", target: "CM-"}
+      - {pattern: "电信", target: "CT"}
+      - {pattern: "中转", target: "Relay"}
+      - {pattern: "负载", target: "LD-"}
+      - {pattern: "荷兰", target: "NLD"}
+      - {pattern: "🇨🇳", target: "🇹🇼"} # 旗帜
+      - {pattern: "0.5倍率", target: "X0.5"}
+      - {pattern: "直连", target: "DIR-"}
+      - {pattern: "德国", target: "DEU"}
 
        
 allow-lan: true
-default:
-  proxies: &pr01 [HKG, JPN, SGP, USA, SMART, HOME, Media Mix, HK-Basic, SG-Basic, Other-Basic, Manual Choice, Download, 直连, 拒绝]
-  type: select
-  
   
 # P2P下载端口
 listeners:
@@ -183,6 +124,7 @@ dns:
       - '+.google.com'
       - '+.facebook.com'
       - '+.youtube.com'
+#外部控制面板模块
 external-controller: 0.0.0.0:9090
 external-ui: ui
 external-ui-name: zashboard
@@ -197,10 +139,14 @@ profile:
   store-selected: true
 unified-delay: true # 统一延迟 计算RTT 可选值 true/false
 #smart模型更新
-lgbm-auto-update: true #smart模型更新
+lgbm-auto-update: true 
 lgbm-update-interval: 48
 lgbm-url: "https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model-large.bin"
 
+#节点组锚点
+default:
+  proxies: &pr01 [HKG, JPN, SGP, USA, SMART, HOME, Media Mix, HK-Basic, SG-Basic, Other-Basic, Manual Choice, Download, 直连, 拒绝]
+  type: select
 proxies:
   - {name: 直连, type: direct}
   - {name: 拒绝, type: reject}
@@ -230,22 +176,23 @@ proxy-groups:
   - {name: Others, proxies: *pr01, type: select}
   - {name: AdsBlock, type: select, proxies: [拒绝, 直连]}
 
-  # ONEsmart
+  # ALLsmart  所有优质机场PRM节点集合
   - {name: SMART, type: smart, filter: ".*PRM.*", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.5;", prefer-asn: true}
-  # 香港地区
+  # 香港地区 PRM优质节点
   - {name: HKG, type: smart, filter: "(?=.*(香港|HK|Hong Kong|HKG))(?=.*PRM).*", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.3;PRO:0.3;", prefer-asn: true}
   # HOME
   - {name: HOME, type: smart, filter: "(?=.*(HOME|家宽|家庭|住宅)).*", uselightgbm: true, collectdata: false, include-all: true}
-  # 新加坡地区
+  # 新加坡地区  PRM优质节点
   - {name: SGP, type: smart, filter: '^(?=.*(新加坡|SG|Singapore|SGP))(?=.*PRM).*$', uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.3;", prefer-asn: true}
-  # 日本地区
+  # 日本地区  PRM优质节点
   - {name: JPN, type: smart, filter: '^(?=.*(日本|东京|JP|Japan|JPN))(?=.*PRM).*$', uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.3;", prefer-asn: true}
-  # 美国地区
+  # 美国地区  PRM优质节点
   - {name: USA, type: smart, filter: '^(?=.*(美国|纽约|洛杉矶|US|USA|United States|America))(?=.*PRM).*$', uselightgbm: true, collectdata: false, include-all: true, policy-priority: "Max:0.5;TOP:0.3;", prefer-asn: true}
-  # 新加坡香港BSC混合节点组
+  # 新加坡香港和其他地区BSC节点组
   - {name: HK-Basic, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?=.*(香港|HK|Hong Kong|HKG))(?=.*BSC).*", prefer-asn: true}
-  - {name: SG-Basic, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?=.*(新加坡|SG|Singapore|SGP))(?=.*BSC).*", policy-priority: LXY:1.2, prefer-asn: true}
-  - {name: Other-Basic, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?=.*(TWN|KOR|DEU|FRA|GBR|BRA|NLD))(?=.*BSC).*", prefer-asn: true}
+  - {name: SG-Basic, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?=.*(新加坡|SG|Singapore|SGP))(?=.*BSC).*",  prefer-asn: true}
+  # 排除了香港和新加坡的其他基本节点
+  - {name: Other-Basic, type: smart, uselightgbm: true, collectdata: false, include-all: true, filter: "(?!.*(香港|HK|Hong Kong|新加坡|SG|Singapore))(?=.*BSC).*", prefer-asn: true}
   # 手动选择
   - {name: Manual Choice, type: select, filter: ^((?!(拒绝|直连)).)*$, include-all: true}
   #低倍率
@@ -254,21 +201,9 @@ proxy-groups:
 
 redir-port: 7892
 rule-anchor:
-  class:
-    behavior: classical
-    format: text
-    interval: 86400
-    type: http
-  domain:
-    behavior: domain
-    format: mrs
-    interval: 86400
-    type: http
-  ip:
-    behavior: ipcidr
-    format: mrs
-    interval: 86400
-    type: http
+  class: {behavior: classical, format: text, interval: 86400, type: http}
+  domain: {behavior: domain, format: mrs, interval: 86400, type: http}
+  ip: {behavior: ipcidr, format: mrs, interval: 86400, type: http}
 rule-providers:
   AWAvenue: {type: http, behavior: domain, format: yaml, path: ./rule_providers/AWAvenue-Ads-Rule-Clash.yaml, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml", interval: 86400}
   anti-ad: {type: http, behavior: domain, path: ./ruleset/anti-ad.yaml, url: https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml, interval: 86400}
@@ -311,13 +246,13 @@ rules:
 - RULE-SET,anti-ad,AdsBlock #广告拦截
 - DOMAIN-SUFFIX,adobe.io,REJECT #Adobe检测拦截
 # Emby规则
-- RULE-SET,Emby-Domain,Emby #域名规则托管在github
+- RULE-SET,Emby-Domain,Emby #域名规则托管在github 大概率你需要在下面自行添加域名
+#- DOMAIN-SUFFIX,这里替换成你使用的emby服务域名,并删除本行前面的#号,Emby
 #TVB
 - GEOSITE,mytvsuper,TVB
 #ip检测
-- RULE-SET,IPTest-Domain,Test #域名规则已经托管在github
-#策略组
-- DOMAIN-KEYWORD,monsterhunter,Game
+- RULE-SET,IPTest-Domain,Test #部分域名规则已经托管在github
+#策略组 Facebook、Instagram 和 Threads 均使用 Instagram 策略组
 - RULE-SET,Instagram-Domain,Instagram
 - RULE-SET,ChatGPT-Domain,ChatGPT
 - GEOSITE,google-deepmind,Google
@@ -329,17 +264,17 @@ rules:
 - RULE-SET,Apple-Domain,Apple
 - RULE-SET,Apple-CN-Domain,Apple
 - RULE-SET,Microsoft-Domain,Microsoft
-- RULE-SET,IMDb-Domain,FavSites
+- RULE-SET,IMDb-Domain,Overseas
 - RULE-SET,Youtube-Domain,YouTube
 - GEOSITE,pornhub,Pornhub
 - RULE-SET,TikTok-Domain,TikTok
 - RULE-SET,Netflix-Domain,Netflix
 - RULE-SET,Netflix-IP,Netflix,no-resolve
 - RULE-SET,Spotify-Domain,Spotify
-- GEOSITE,steam@cn,DIRECT
-- DOMAIN-SUFFIX,steamcontent.com,DIRECT
-- DOMAIN-SUFFIX,steamstatic.com,DIRECT
-- DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,DIRECT
+- GEOSITE,steam@cn,DIRECT #steam下载相关域名 直连
+- DOMAIN-SUFFIX,steamcontent.com,DIRECT #steam下载相关域名 直连
+- DOMAIN-SUFFIX,steamstatic.com,DIRECT #steam下载相关域名 直连
+- DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,DIRECT #steam下载相关域名 直连
 - GEOSITE,steam,Steam
 - RULE-SET,Epic-Domain,Game
 - RULE-SET,EA-Domain,Game
@@ -357,7 +292,7 @@ rules:
 - RULE-SET,China-IP,CHN,no-resolve
 - RULE-SET,Private-Domain,CHN
 - IP-ASN,32934,Instagram
-- MATCH,Others
+- MATCH,Others 
 secret: '123456'
 socks-port: 7891
 tproxy-port: 7895

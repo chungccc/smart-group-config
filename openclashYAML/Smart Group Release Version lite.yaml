@@ -1,29 +1,20 @@
-#更新日期：2026年8月24日
+#更新日期：2026年8月28日
+#订阅健康检查锚点
+health-check: &hc {enable: true, url: http://cp.cloudflare.com/generate_204, lazy: true, interval: 300, timeout: 3000}
 proxy-providers:
   机场A:
-    health-check:
-      enable: true
-      url: http://cp.cloudflare.com/generate_204
-      lazy: true
-      interval: 300
-      timeout: 3000
+    health-check: *hc
     interval: 3000
     path: ./providers/机场A.yaml
     type: http
     url: #删除本注释并填入订阅链接
     filter: '^(?!.*(流量|到期|套餐|官网|刷新|订阅|更新|失联|邮箱|IPV6|官方)).*$'
     #filter: '(香港|日本|新加坡|美国|韩国|台湾|家宽|原生)' #筛选保留节点 也可以替换成下列filter
-    #filter: '^(?!.*(流量|到期|套餐|官网|刷新|订阅|更新|失联|邮箱|IPV6|官方)).*$'
     override:
       additional-prefix: "机场A-" #前缀 用于识别机场
-      additional-suffix: "-PRM" #后缀 区分不同等级机场
+      additional-suffix: "-PRM" #后缀 区分不同等级机场 PRM代表优质 BSC代表基本备用
   机场B:
-    health-check:
-      enable: true
-      url: http://cp.cloudflare.com/generate_204
-      lazy: true
-      interval: 300
-      timeout: 3000
+    health-check: *hc
     interval: 3000
     path: ./providers/机场B.yaml
     type: http
@@ -38,10 +29,7 @@ proxy-providers:
 
        
 allow-lan: true
-default:
-  proxies: &pr01 [HKG, JPN, SGP, USA, SMART, HOME, Media Mix, HK-Basic, SG-Basic, Other-Basic, Manual Choice, Download, 直连, 拒绝]
-  type: select
-  
+
 # P2P下载端口
 listeners:
 - name: socks5-in-1
@@ -90,6 +78,7 @@ dns:
       - '+.google.com'
       - '+.facebook.com'
       - '+.youtube.com'
+#外部控制面板模块
 external-controller: 0.0.0.0:9090
 external-ui: ui
 external-ui-name: zashboard
@@ -103,10 +92,19 @@ profile:
   store-fake-ip: true
   store-selected: true
 unified-delay: true # 统一延迟 计算RTT 可选值 true/false
-lgbm-auto-update: true #smart模型更新
+
+#smart模型更新
+lgbm-auto-update: true 
 lgbm-update-interval: 48
 lgbm-url: "https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model-large.bin"
-proxies: [{name: 直连, type: direct}, {name: 拒绝, type: reject}]
+
+#节点组锚点
+default:
+  proxies: &pr01 [HKG, JPN, SGP, USA, SMART, HOME, Manual Choice, Download, 直连, 拒绝]
+  type: select
+proxies:
+  - {name: 直连, type: direct}
+  - {name: 拒绝, type: reject}
 proxy-groups:
   - {name: Test, proxies: *pr01, type: select}
   - {name: Steam, proxies: *pr01, type: select}
@@ -133,12 +131,12 @@ proxy-groups:
   - {name: Others, proxies: *pr01, type: select}
   - {name: AdsBlock, type: select, proxies: [拒绝, 直连]}
 
-    # ONEsmart
+  # ALLsmart  所有优质机场PRM节点集合
   - {name: SMART, type: smart, filter: ".*PRM.*", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "PRM:1.3;", prefer-asn: true}
   # 香港地区
   - {name: HKG, type: smart, filter: "(?=.*(香港|HK|Hong Kong|HKG)).*", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "PRM:1.3;", prefer-asn: true}
   # HOME
-  - {name: HOME, type: smart, filter: "(?=.*(HOME|家宽|家庭|住宅)).*", uselightgbm: true, collectdata: false, include-all: true}
+  - {name: HOME, type: smart, filter: "(?=.*(HOME|家宽|家庭|住宅)).*", uselightgbm: true, policy-priority: "PRM:1.3;", collectdata: false, include-all: true}
   # 新加坡地区
   - {name: SGP, type: smart, filter: "^(?=.*(新加坡|SG|Singapore|SGP)).*$", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "PRM:1.3;", prefer-asn: true}
   # 日本地区
@@ -198,13 +196,13 @@ rules:
 - RULE-SET,anti-ad,AdsBlock #广告拦截
 - DOMAIN-SUFFIX,adobe.io,REJECT #Adobe检测拦截
 # Emby规则
-- RULE-SET,Emby-Domain,Emby #域名规则托管在github
+- RULE-SET,Emby-Domain,Emby #域名规则托管在github 大概率你需要在下面自行添加域名
+#- DOMAIN-SUFFIX,这里替换成你使用的emby服务域名,并删除本行前面的#号,Emby
 #TVB
 - GEOSITE,mytvsuper,TVB
 #ip检测
-- RULE-SET,IPTest-Domain,Test #域名规则已经托管在github
-#策略组 Facebook、Instagram 和 Threads 均使用 Instagram 策略。
-- DOMAIN-KEYWORD,monsterhunter,Game
+- RULE-SET,IPTest-Domain,Test #部分域名规则已经托管在github
+#策略组 Facebook、Instagram 和 Threads 均使用 Instagram 策略组
 - RULE-SET,Instagram-Domain,Instagram
 - RULE-SET,ChatGPT-Domain,ChatGPT
 - GEOSITE,google-deepmind,Google
@@ -216,17 +214,17 @@ rules:
 - RULE-SET,Apple-Domain,Apple
 - RULE-SET,Apple-CN-Domain,Apple
 - RULE-SET,Microsoft-Domain,Microsoft
-- RULE-SET,IMDb-Domain,FavSites
+- RULE-SET,IMDb-Domain,Overseas
 - RULE-SET,Youtube-Domain,YouTube
 - GEOSITE,pornhub,Pornhub
 - RULE-SET,TikTok-Domain,TikTok
 - RULE-SET,Netflix-Domain,Netflix
 - RULE-SET,Netflix-IP,Netflix,no-resolve
 - RULE-SET,Spotify-Domain,Spotify
-- GEOSITE,steam@cn,DIRECT
-- DOMAIN-SUFFIX,steamcontent.com,DIRECT
-- DOMAIN-SUFFIX,steamstatic.com,DIRECT
-- DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,DIRECT
+- GEOSITE,steam@cn,DIRECT #steam下载相关域名 直连
+- DOMAIN-SUFFIX,steamcontent.com,DIRECT #steam下载相关域名 直连
+- DOMAIN-SUFFIX,steamstatic.com,DIRECT #steam下载相关域名 直连
+- DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,DIRECT #steam下载相关域名 直连
 - GEOSITE,steam,Steam
 - RULE-SET,Epic-Domain,Game
 - RULE-SET,EA-Domain,Game
