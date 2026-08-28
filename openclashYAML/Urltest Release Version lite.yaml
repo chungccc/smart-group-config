@@ -126,22 +126,29 @@ proxy-groups:
   - {name: Others, proxies: *pr01, type: select}
   - {name: AdsBlock, type: select, proxies: [拒绝, 直连]}
 
-  # ALLsmart  所有优质机场PRM节点集合
-  - {name: MIX, type: url-test, filter: ".*PRM.*", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "PRM:1.3;", prefer-asn: true}
+  # ALLsmart 所有优质机场PRM节点集合
+  - {name: MIX, type: url-test, filter: ".*PRM.*", include-all: true, url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, lazy: true}
+
   # 香港地区
-  - {name: HKG, type: url-test, filter: "(?=.*(香港|HK|Hong Kong|HKG)).*", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "PRM:1.3;", prefer-asn: true}
+  - {name: HKG, type: url-test, filter: "(?=.*(香港|HK|Hong Kong|HKG)).*", include-all: true, url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, lazy: true}
+
   # HOME
-  - {name: HOME, type: url-test, filter: "(?=.*(HOME|家宽|家庭|住宅)).*", uselightgbm: true, policy-priority: "PRM:1.3;", collectdata: false, include-all: true}
+  - {name: HOME, type: url-test, filter: "(?=.*(HOME|家宽|家庭|住宅)).*", include-all: true, url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, lazy: true}
+
   # 新加坡地区
-  - {name: SGP, type: url-test, filter: "^(?=.*(新加坡|SG|Singapore|SGP)).*$", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "PRM:1.3;", prefer-asn: true}
+  - {name: SGP, type: url-test, filter: "^(?=.*(新加坡|SG|Singapore|SGP)).*$", include-all: true, url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, lazy: true}
+
   # 日本地区
-  - {name: JPN, type: url-test, filter: "^(?=.*(日本|东京|JP|Japan|JPN)).*$", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "PRM:1.3;", prefer-asn: true}
+  - {name: JPN, type: url-test, filter: "^(?=.*(日本|东京|JP|Japan|JPN)).*$", include-all: true, url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, lazy: true}
+
   # 美国地区
-  - {name: USA, type: url-test, filter: "^(?=.*(美国|纽约|洛杉矶|US|USA|United States|America)).*$", uselightgbm: true, collectdata: false, include-all: true, policy-priority: "PRM:1.3;", prefer-asn: true}
+  - {name: USA, type: url-test, filter: "^(?=.*(美国|纽约|洛杉矶|US|USA|United States|America)).*$", include-all: true, url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, lazy: true}
+
   # 手动选择
-  - {name: Manual Choice, type: select, filter: "^((?!(拒绝|直连)).)*$", include-all: true}
-  #低倍率
-  - {name: Download, type: url-test, uselightgbm: true, collectdata: false, include-all: true, filter: "(?i)(下载|0\\.1|0\\.01X|BT|DL)", prefer-asn: true}
+  - {name: Manual Choice, type: select, filter: "^((?!(拒绝|直连)).)*$", include-all: true, url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, lazy: true}
+
+  # 低倍率
+  - {name: Download, type: url-test, include-all: true, filter: "(?i)(下载|0\\.1|0\\.01X|BT|DL)", url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, lazy: true}
 
 
 redir-port: 7892
